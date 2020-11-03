@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include "Parser.cpp"
+#include "MathOperations.cpp"
 #include "Variable.cpp"
+
 
 
 int main()
@@ -10,4 +12,5 @@ int main()
     Variable variable(variables);
     std::string filename = "test.ac";
     Parser parser(filename, console);
+ 
 }
