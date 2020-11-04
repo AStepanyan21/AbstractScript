@@ -2,6 +2,7 @@
 #include "Parser.cpp"
 #include "MathOperations.cpp"
 #include "Variable.cpp"
+#include "ConditionalOperators.cpp"
 
 
 
@@ -12,5 +13,4 @@ int main()
     Variable variable(variables);
     std::string filename = "test.ac";
     Parser parser(filename, console);
- 
 }

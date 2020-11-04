@@ -45,4 +45,12 @@ public:
 		return a % b;
 	}
 
+	static int intPow(int a, int b) {
+		return pow(a,b);
+	}
+
+	static int floatPow(float a, float b) {
+		return pow(a, b);
+	}
+
 };
