@@ -26,10 +26,10 @@ WHILE (a < b){
 }
 VAR c = True;
 IF (c == False){
-	PRINT a;
+	PRINT (a) ;
 }
 ELSE{
-	PRINT b;
+	PRINT (b) ;
 }
 
 ```
