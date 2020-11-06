@@ -21,15 +21,15 @@ In conditional operator`IF-ELSE`  - conditions we push in `()` and the instructi
 ```
 VAR a = 3 ;
 VAR b = 9 ;
-WHILE (a < b){
-	a += 1;
+WHILE ( a < b ){
+	a += 1 ;
 }
 VAR c = True;
-IF (c == False){
-	PRINT (a) ;
+IF ( c == False ){
+	PRINT ( a ) ;
 }
-ELSE{
-	PRINT (b) ;
+ELSE {
+	PRINT ( b ) ;
 }
 
 ```
