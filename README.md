@@ -16,20 +16,20 @@ At the end of the line you need to put `;` .
 If we call `WHILE` conditions we push in `()` and the instruction in `{}` .
 In conditional operator`IF-ELSE`  - conditions we push in `()` and the instruction in `{}` .
 
-<h3> Пример кода </h3>
+<h3> Example code </h3>
 
 ```
-VAR a = 3;
-VAR b = 9;
-WHILE (a < b){
-	a += 1;
+VAR a = 3 ;
+VAR b = 9 ;
+WHILE ( a < b ){
+	a += 1 ;
 }
 VAR c = True;
-IF (c == False){
-	PRINT a;
+IF ( c == False ){
+	PRINT ( a ) ;
 }
-ELSE{
-	PRINT b;
+ELSE {
+	PRINT ( b ) ;
 }
 
 ```
