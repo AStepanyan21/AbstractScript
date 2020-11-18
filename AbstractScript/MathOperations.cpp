@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 
 class Operation {
 public:
@@ -46,7 +47,7 @@ public:
 	}
 
 	static int intPow(int a, int b) {
-		return pow(a,b);
+		return pow(a, b);
 	}
 
 	static int floatPow(float a, float b) {
