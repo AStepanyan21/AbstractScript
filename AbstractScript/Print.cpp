@@ -1,5 +1,5 @@
 #include <iostream>
-#include<windows.h>
+#include <windows.h>
 
 enum ConsoleColor
 {
@@ -37,7 +37,7 @@ public:
 	}
 
 	 void error(std::string logName) {
-         this->SetColor(Red, Black);
+        this->SetColor(Red, Black);
         std::cout << logName << std::endl;
         this->SetColor(White, Black);
 	}
