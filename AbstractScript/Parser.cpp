@@ -11,8 +11,9 @@
 class Parser {
 private:
     Print console;
-    std::vector<std::string> comands;
-    std::vector<std::string> spliting(std::string text){
+    std::vector<std::string> commands;
+    std::vector<std::vector<std::string>> splitting_commands;
+    std::vector<std::string> splitting(std::string text){
         std::vector<std::string> commands;
         std::string intermediate;
         std::stringstream check1(text);
@@ -22,21 +23,23 @@ private:
         return commands;
 
     }
-    void splitCommand(std::string s){
+    std::vector<std::string> splitCommand(std::string s){
         std::regex reg("\\s*(\")|(([a-zA-Z]+)(\\d*)|[+*/-])|([0-9]+)|!=|<=|>=|==|[=]|<|>|%\\s*");
-        std::smatch m;
-        for(std::sregex_iterator i = std::sregex_iterator(s.begin(), s.end(), reg);
-                                i != std::sregex_iterator();
-                                ++i )
-       {
-           std::smatch m = *i;
-           std::cout << m[0] << '\n';
-       }
-    }
-    void parsingCommands(std::vector<std::string> comands){
-        for(int i = 0; i<comands.size();i++){
-            this->splitCommand(comands[i]);
+        std::vector<std::string> v;
+        std::sregex_token_iterator iter(s.begin(), s.end(), reg, 0);
+        std::sregex_token_iterator end;
+        while(iter != end){
+            v.push_back(*iter);
+            ++iter;
         }
+        return v;
+    }
+    std::vector<std::vector<std::string>> parsingCommands(std::vector<std::string> command){
+        std::vector<std::vector<std::string>> splitting_commands;
+        for(int i = 0; i<command.size();i++){
+            splitting_commands.push_back(this->splitCommand(command[i]));
+        }
+        return splitting_commands;
     }
     std::string delete_tabs_and_newline(std::string& line){
         std::regex reg("\n|\t");
@@ -56,13 +59,16 @@ private:
             }
             rfile.close();
             std::string code = this->delete_tabs_and_newline(all_code);
-            this->comands = this->spliting(code);
-            this->parsingCommands(this->comands);
+            this->commands = this->splitting(code);
+            this->splitting_commands = this->parsingCommands(this->commands);
         }
 	}
 public:
     Parser(std::string filename, Print console) {
         this->console = console;
         this->parsing(filename);
+    }
+    std::vector<std::vector<std::string>> getCommands(){
+        return this->splitting_commands;
     }
 };
