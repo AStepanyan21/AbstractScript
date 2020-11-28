@@ -31,18 +31,21 @@ private:
         SetConsoleTextAttribute(this->hConsole, (WORD)((background << 4) | text));
     }
 public:
-	 void log(std::string logName) {
+    template <class T>
+	void log(T logName) {
         this->SetColor(White, Black);
         std::cout << logName << std::endl;
 	}
 
-	 void error(std::string logName) {
+    template <class T>
+	void error(T logName) {
         this->SetColor(Red, Black);
         std::cout << logName << std::endl;
         this->SetColor(White, Black);
 	}
 
-	void success(std::string logName) {
+    template <class T>
+	void success(T logName) {
         this->SetColor(Green, Black);
 		std::cout << logName << std::endl;
         this->SetColor(White, Black);

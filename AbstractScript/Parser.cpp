@@ -10,9 +10,9 @@
 
 class Parser {
 private:
-    Print console;
     std::vector<std::string> commands;
     std::vector<std::vector<std::string>> splitting_commands;
+
     std::vector<std::string> splitting(std::string text){
         std::vector<std::string> commands;
         std::string intermediate;
@@ -21,8 +21,8 @@ private:
             commands.push_back(intermediate);
         }
         return commands;
-
     }
+
     std::vector<std::string> splitCommand(std::string s){
         std::regex reg("\\s*(\")|(([a-zA-Z]+)(\\d*)|[+*/-])|([0-9]+)|!=|<=|>=|==|[=]|<|>|%\\s*");
         std::vector<std::string> v;
@@ -34,6 +34,7 @@ private:
         }
         return v;
     }
+
     std::vector<std::vector<std::string>> parsingCommands(std::vector<std::string> command){
         std::vector<std::vector<std::string>> splitting_commands;
         for(int i = 0; i<command.size();i++){
@@ -41,6 +42,7 @@ private:
         }
         return splitting_commands;
     }
+
     std::string delete_tabs_and_newline(std::string& line){
         std::regex reg("\n|\t");
         std::string text = "" ;
@@ -63,9 +65,9 @@ private:
             this->splitting_commands = this->parsingCommands(this->commands);
         }
 	}
+    
 public:
-    Parser(std::string filename, Print console) {
-        this->console = console;
+    Parser(std::string filename) {
         this->parsing(filename);
     }
     std::vector<std::vector<std::string>> getCommands(){

@@ -12,11 +12,6 @@ int main()
     std::map<std::string, VariableStructur> variables;
     Variable variable(variables);
     std::string filename = "test.ac";
-    Parser parser(filename, console);
+    Parser parser(filename);
     all_commands = parser.getCommands();
-    for(int i = 0; i < all_commands.size(); i++){
-        for( int j = 0; j< all_commands[i].size(); j++){
-            std::cout<<all_commands[i][j]<<std::endl;
-        }
-    }
 }

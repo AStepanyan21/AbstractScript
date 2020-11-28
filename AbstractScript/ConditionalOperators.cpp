@@ -2,35 +2,34 @@
 
 class Conditional {
 public:
-	static bool equallyString(std::string a, std::string b) {
+
+	template <class T,class R>
+	static bool equally(T a, R b) {
 		return a == b;
 	}
 
-	static bool notEqualString(std::string a, std::string b) {
+	template <class T,class R>
+	static bool notEqual(T a, R b) {
 		return a != b;
 	}
 
-	static bool equally(float a, float b) {
-		return a == b;
-	}
-
-	static bool notEqual(float a, float b) {
-		return a != b;
-	}
-
-	static bool greaterThanEquals(float a, float b) {
+	template <class T,class R>
+	static bool greaterThanEquals(T a, R b) {
 		return a >= b;
 	}
 
-	static bool lessThanEqual(float a, float b) {
+	template <class T,class R>
+	static bool lessThanEqual(T a, R b) {
 		return a <= b;
 	}
 
-	static bool greater(float a, float b) {
+	template <class T,class R>
+	static bool greater(T a, R b) {
 		return a > b;
 	}
-
-	static bool less(float a, float b) {
+	
+	template <class T,class R>
+	static bool less(T a, R b) {
 		return a < b;
 	}
 };
