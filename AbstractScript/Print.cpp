@@ -26,28 +26,28 @@ class Print {
 private:
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     
-    void SetColor(ConsoleColor text, ConsoleColor background)
+    void setColor(ConsoleColor text, ConsoleColor background)
     {
         SetConsoleTextAttribute(this->hConsole, (WORD)((background << 4) | text));
     }
 public:
     template <class T>
 	void log(T logName) {
-        this->SetColor(White, Black);
+        this->setColor(White, Black);
         std::cout << logName << std::endl;
 	}
 
     template <class T>
 	void error(T logName) {
-        this->SetColor(Red, Black);
+        this->setColor(Red, Black);
         std::cout << logName << std::endl;
-        this->SetColor(White, Black);
+        this->setColor(White, Black);
 	}
 
     template <class T>
 	void success(T logName) {
-        this->SetColor(Green, Black);
+        this->setColor(Green, Black);
 		std::cout << logName << std::endl;
-        this->SetColor(White, Black);
+        this->setColor(White, Black);
 	}
 };
