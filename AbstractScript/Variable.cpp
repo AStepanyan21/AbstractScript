@@ -16,8 +16,8 @@ public:
     Variable() {
 
     }
-    Variable(std::map<std::string, VariableStructur> variables) {
-        this->variables = variables;
+    Variable(std::map<std::string, VariableStructur>* variables) {
+        this->variables = *variables;
     }
 
     void set(std::string varName, VariableStructur var) {
