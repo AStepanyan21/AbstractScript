@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <sstream> 
 #include <string>
 #include "MathOperations.cpp"
 #include "Variable.cpp"
@@ -10,52 +11,66 @@ private:
     std::vector<std::vector<std::string>> all_commands;
     Variable variable;
 
-    int toInt(std::string token){
-        return std::stoi(token);
+    float toNumber(std::string token){
+        std::stringstream geek(token);
+        float num = 0;
+        geek >> num;
+        return num;
+    }
+
+    float serchOnVars(std::string token){
+        if(variable.get(token).name == ""){
+            return this->toNumber(token);
+        }else{
+            return this->toNumber(variable.get(token).value);
+        }
     }
 
     std::string setVarType(std::string value){
-        return value;
+        return "number";
     }
 
     void createVar(std::string varName, std::string varValue){
         VariableStructur var;
         var.name = varName;
         var.value = varValue;
-        var.type = setVarType(var.value);
+        var.type = this->setVarType(var.value);
         this->variable.set(var.name, var);
     }
 
     void addVarCommand(std::vector<std::string> commands) {
         if (commands.size() > 4) {
             if (commands[4] == "+") {
-                this->createVar(commands[1], std::to_string(Operation::sum(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::sum(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
             else if (commands[4] == "-") {
-                this->createVar(commands[1], std::to_string(Operation::sub(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::sub(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
             else if (commands[4] == "*") {
-                this->createVar(commands[1], std::to_string(Operation::mul(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::mul(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
             else if (commands[4] == "/") {
-                this->createVar(commands[1], std::to_string(Operation::dec(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::dec(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
             else if (commands[4] == "/") {
-                this->createVar(commands[1], std::to_string(Operation::mod(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::mod(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
             else if (commands[4] == "^") {
-                this->createVar(commands[1], std::to_string(Operation::pow(toInt(commands[3]), this->toInt(commands[5]))));
+                this->createVar(commands[1], std::to_string(Operation::pow(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
             }
         }
        else{
-            this->createVar(commands[1], commands[3]);
+           this->createVar(commands[1], std::to_string(this->serchOnVars(commands[3])));
             
        }
     }
    
     void tokenAnalis(std::vector<std::string> commands) {
         if (commands[0] == "VAR") {
-            addVarCommand(commands);
+            this->addVarCommand(commands);
+        }
+        if(commands[0] == "PRINT"){
+            std::cout<<this->serchOnVars(commands[1]);
         }
         
     }

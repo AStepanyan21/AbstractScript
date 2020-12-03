@@ -28,8 +28,7 @@ public:
 		}
 	}
 
-	template <class T,class R>
-	static T mod(T a, R b) {
+	static int mod(int a, int b) {
 		return a % b;
 	}
 
