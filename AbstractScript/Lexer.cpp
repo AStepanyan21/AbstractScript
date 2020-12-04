@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream> 
 #include <string>
+#include "ConditionalOperators.cpp"
 #include "MathOperations.cpp"
 #include "Variable.cpp"
 
@@ -38,6 +39,40 @@ private:
         this->variable.set(var.name, var);
     }
 
+    bool conditionalOperations(std::vector<std::string> commands){
+        for ( int i = 0; i < commands.size(); i++) {
+            // std::cout<<commands[i]<<std::endl;
+            if (commands[i] == "<"){
+                return Conditional::less(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+            else if (commands[i] == "<="){
+                return Conditional::lessThanEqual(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+            else if (commands[i] == ">"){
+                return Conditional::greater(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+            else if (commands[i] == ">="){
+                return Conditional::greaterThanEquals(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+            else if (commands[i] == "=="){
+                return Conditional::equally(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+            else if (commands[i] == "!="){
+                return Conditional::notEqual(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+            }
+        }
+        return false;
+    }
+    void ifCommand( std::vector<std::vector<std::string>> command){
+        if(this->conditionalOperations(command[0]) == true){
+            command.erase(command.begin());
+            this->tokenAnalis(command);
+        }
+        else{
+            return;
+        }
+    }
+
     void mathOperations(std::vector<std::string> commands){
         for ( int i = 0; i < commands.size(); i++) {
             if (commands[i] == "+") {
@@ -71,24 +106,25 @@ private:
     }
    
     void tokenAnalis(std::vector<std::vector<std::string>> commands) {
-        for (int i = 0; i < all_commands.size(); i++) {
+        for (int i = 0; i < commands.size(); i++) {
             if (commands[i][0] == "VAR") {
                 this->addVarCommand(commands[i]);
             }
             if (commands[i][0] == "IF"){
-               std::vector<std::vector<std::string>> ifCommands;
-               for(int j = i ; j < all_commands.size();j++){
+                std::vector<std::vector<std::string>> ifCommands;
+                for(int j = i ; j < commands.size();j++,i++){
                     if(commands[j][0] != "ENDIF"){
-                        ifCommands.push_back(commands[j]);
+                       ifCommands.push_back(commands[j]);
                     }
-                    else{
-                        i = j;
-                        break;
+                    else if (commands[j][0] == "ENDIF"){
+                       break;
                     }
-               }
+                }
+                this->ifCommand(ifCommands);
+                continue;           
             }
             if(commands[i][0] == "PRINT"){
-                std::cout<<this->serchOnVars(commands[i][1]);
+                std::cout<<this->serchOnVars(commands[i][1])<<std::endl;
             }
             else{
                 this->mathOperations(commands[i]);

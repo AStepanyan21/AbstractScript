@@ -24,7 +24,7 @@ private:
     }
 
     std::vector<std::string> splitCommand(std::string s){
-        std::regex reg("\\s*(\")|(([a-zA-Z]+)(\\d*)|[+*/-])|([0-9]+).([0-9]+)|([0-9]+)|!=|<=|>=|==|[=]|<|%|>\\s*");
+        std::regex reg("\\s*(\")|(([a-zA-Z]+)(\\d*)|[+*/-])|([0-9]+).([0-9]+)|([0-9]+)|!=|<=|>=|==|[=]|<|>|%\\s*");
         std::vector<std::string> v;
         std::sregex_token_iterator iter(s.begin(), s.end(), reg, 0);
         std::sregex_token_iterator end;

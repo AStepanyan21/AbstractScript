@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include "Parser.cpp"
 #include "Print.cpp"
-#include "ConditionalOperators.cpp"
 #include "Lexer.cpp"
 
 
