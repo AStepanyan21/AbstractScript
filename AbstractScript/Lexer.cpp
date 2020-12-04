@@ -38,46 +38,65 @@ private:
         this->variable.set(var.name, var);
     }
 
-    void addVarCommand(std::vector<std::string> commands) {
-        if (commands.size() > 4) {
-            if (commands[4] == "+") {
-                this->createVar(commands[1], std::to_string(Operation::sum(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+    void mathOperations(std::vector<std::string> commands){
+        for ( int i = 0; i < commands.size(); i++) {
+            if (commands[i] == "+") {
+                this->createVar(commands[i - 3], std::to_string(Operation::sum(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
-            else if (commands[4] == "-") {
-                this->createVar(commands[1], std::to_string(Operation::sub(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+            else if (commands[i] == "-") {
+                this->createVar(commands[i - 3], std::to_string(Operation::sub(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
-            else if (commands[4] == "*") {
-                this->createVar(commands[1], std::to_string(Operation::mul(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+            else if (commands[i] == "*") {
+                this->createVar(commands[i - 3], std::to_string(Operation::mul(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
-            else if (commands[4] == "/") {
-                this->createVar(commands[1], std::to_string(Operation::dec(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+            else if (commands[i] == "/") {
+                this->createVar(commands[i - 3], std::to_string(Operation::dec(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
-            else if (commands[4] == "/") {
-                this->createVar(commands[1], std::to_string(Operation::mod(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+            else if (commands[i] == "%") {
+                this->createVar(commands[i - 3], std::to_string(Operation::mod(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
-            else if (commands[4] == "^") {
-                this->createVar(commands[1], std::to_string(Operation::pow(this->serchOnVars(commands[3]), this->serchOnVars(commands[5]))));
+            else if (commands[i] == "^") {
+                this->createVar(commands[i - 3], std::to_string(Operation::pow(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
             }
         }
-       else{
-           this->createVar(commands[1], std::to_string(this->serchOnVars(commands[3])));
-            
-       }
+    }
+    void addVarCommand(std::vector<std::string> commands) {
+        if (commands.size() <= 4){
+                this->createVar(commands[1], std::to_string(this->serchOnVars(commands[3])));
+                return;
+            }
+        else{
+            this->mathOperations(commands);
+        }
     }
    
-    void tokenAnalis(std::vector<std::string> commands) {
-        if (commands[0] == "VAR") {
-            this->addVarCommand(commands);
+    void tokenAnalis(std::vector<std::vector<std::string>> commands) {
+        for (int i = 0; i < all_commands.size(); i++) {
+            if (commands[i][0] == "VAR") {
+                this->addVarCommand(commands[i]);
+            }
+            if (commands[i][0] == "IF"){
+               std::vector<std::vector<std::string>> ifCommands;
+               for(int j = i ; j < all_commands.size();j++){
+                    if(commands[j][0] != "ENDIF"){
+                        ifCommands.push_back(commands[j]);
+                    }
+                    else{
+                        i = j;
+                        break;
+                    }
+               }
+            }
+            if(commands[i][0] == "PRINT"){
+                std::cout<<this->serchOnVars(commands[i][1]);
+            }
+            else{
+                this->mathOperations(commands[i]);
+            }
         }
-        if(commands[0] == "PRINT"){
-            std::cout<<this->serchOnVars(commands[1]);
-        }
-        
     }
     void commandsRead(std::vector<std::vector<std::string>> all_commands) {
-        for (int i = 0; i < all_commands.size(); i++) {
-            this->tokenAnalis(all_commands[i]);
-        }
+        this->tokenAnalis(all_commands); 
     }
 
 public:
