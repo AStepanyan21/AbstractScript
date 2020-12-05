@@ -41,7 +41,6 @@ private:
 
     bool conditionalOperations(std::vector<std::string> commands){
         for ( int i = 0; i < commands.size(); i++) {
-            // std::cout<<commands[i]<<std::endl;
             if (commands[i] == "<"){
                 return Conditional::less(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
             }
@@ -70,6 +69,16 @@ private:
         }
         else{
             return;
+        }
+    }
+
+    void whileCommand( std::vector<std::vector<std::string>> command){
+        std::vector<std::string> state = command[0];
+        bool whlieState = this->conditionalOperations(state);
+        command.erase(command.begin());
+        while( whlieState == true ){
+            this->tokenAnalis(command);
+            whlieState = conditionalOperations(state);
         }
     }
 
@@ -121,6 +130,19 @@ private:
                     }
                 }
                 this->ifCommand(ifCommands);
+                continue;           
+            }
+            if (commands[i][0] == "WHILE"){
+                std::vector<std::vector<std::string>> whileCommands;
+                for(int j = i ; j < commands.size();j++,i++){
+                    if(commands[j][0] != "END"){
+                       whileCommands.push_back(commands[j]);
+                    }
+                    else if (commands[j][0] == "END"){
+                       break;
+                    }
+                }
+                this->whileCommand(whileCommands);
                 continue;           
             }
             if(commands[i][0] == "PRINT"){
