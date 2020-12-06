@@ -4,6 +4,7 @@
 #include <string>
 #include "ConditionalOperators.cpp"
 #include "MathOperations.cpp"
+#include "Print.cpp"
 #include "Variable.cpp"
 
 
@@ -11,6 +12,7 @@ class Lexer {
 private:
     std::vector<std::vector<std::string>> all_commands;
     Variable variable;
+    Print console;
 
     float toNumber(std::string token){
         std::stringstream geek(token);
@@ -146,7 +148,7 @@ private:
                 continue;           
             }
             if(commands[i][0] == "PRINT"){
-                std::cout<<this->serchOnVars(commands[i][1])<<std::endl;
+                this->console.log(this->serchOnVars(commands[i][1]));
             }
             else{
                 this->mathOperations(commands[i]);
@@ -158,9 +160,10 @@ private:
     }
 
 public:
-    Lexer(std::vector<std::vector<std::string>> all_commands, Variable variable) {
+    Lexer(std::vector<std::vector<std::string>> all_commands, Variable variable, Print console) {
         this->all_commands = all_commands;
         this->variable = variable;
         this->commandsRead(this->all_commands);
+        this->console = console;
     }
 };
