@@ -21,45 +21,55 @@ private:
         return num;
     }
 
-    float serchOnVars(std::string token){
+    std::string serchOnVars(std::string token){
         if(variable.get(token).name == ""){
-            return this->toNumber(token);
+            return token;
         }else{
-            return this->toNumber(variable.get(token).value);
+            if(variable.get(token).type == "number"){
+                return variable.get(token).value;
+            }
+            else{
+                return variable.get(token).value;
+            }
         }
     }
 
-    std::string setVarType(std::string value){
-        return "number";
-    }
 
-    void createVar(std::string varName, std::string varValue){
+    void createNumberVar(std::string varName, std::string varValue){
         VariableStructur var;
         var.name = varName;
         var.value = varValue;
-        var.type = this->setVarType(var.value);
+        var.type = "number";
+        this->variable.set(var.name, var);
+    }
+
+    void createStringVar(std::string varName, std::string varValue){
+        VariableStructur var;
+        var.name = varName;
+        var.value = varValue;
+        var.type = "string";
         this->variable.set(var.name, var);
     }
 
     bool conditionalOperations(std::vector<std::string> commands){
         for ( int i = 0; i < commands.size(); i++) {
             if (commands[i] == "<"){
-                return Conditional::less(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::less(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
             else if (commands[i] == "<="){
-                return Conditional::lessThanEqual(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::lessThanEqual(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
             else if (commands[i] == ">"){
-                return Conditional::greater(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::greater(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
             else if (commands[i] == ">="){
-                return Conditional::greaterThanEquals(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::greaterThanEquals(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
             else if (commands[i] == "=="){
-                return Conditional::equally(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::equally(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
             else if (commands[i] == "!="){
-                return Conditional::notEqual(this->serchOnVars(commands[i - 1]),this->serchOnVars(commands[i + 1]));
+                return Conditional::notEqual(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
         }
         return false;
@@ -87,33 +97,48 @@ private:
     void mathOperations(std::vector<std::string> commands){
         for ( int i = 0; i < commands.size(); i++) {
             if (commands[i] == "+") {
-                this->createVar(commands[i - 3], std::to_string(Operation::sum(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::sum(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
             else if (commands[i] == "-") {
-                this->createVar(commands[i - 3], std::to_string(Operation::sub(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::sub(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
             else if (commands[i] == "*") {
-                this->createVar(commands[i - 3], std::to_string(Operation::mul(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::mul(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
             else if (commands[i] == "/") {
-                this->createVar(commands[i - 3], std::to_string(Operation::dec(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::dec(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
             else if (commands[i] == "%") {
-                this->createVar(commands[i - 3], std::to_string(Operation::mod(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::mod(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
             else if (commands[i] == "^") {
-                this->createVar(commands[i - 3], std::to_string(Operation::pow(this->serchOnVars(commands[i - 1]), this->serchOnVars(commands[i + 1]))));
+                this->createNumberVar(commands[i - 3], std::to_string(Operation::pow(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
         }
     }
     void addVarCommand(std::vector<std::string> commands) {
-        if (commands.size() <= 4){
-                this->createVar(commands[1], std::to_string(this->serchOnVars(commands[3])));
+        std::string str = "";
+        for( int i = 0; i < commands.size(); i++ ){
+            if(commands[i] == " \""){
+                for( int j=i+1; j < commands.size(); j++, i++){
+                    if(commands[j] != "\""){
+                        str = str + commands[j] + " ";
+
+                    }else if(commands[j] == "\""){
+                        break;
+                    }
+                }
+                this->createStringVar(commands[1], str);
+                continue;
+            }else if (commands.size() <= 4){
+                this->createNumberVar(commands[1], this->serchOnVars(commands[3]));
                 return;
             }
-        else{
-            this->mathOperations(commands);
+            else{
+                this->mathOperations(commands);
+            }
         }
+        
     }
    
     void tokenAnalis(std::vector<std::vector<std::string>> commands) {
