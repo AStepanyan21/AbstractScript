@@ -1,4 +1,4 @@
-#  Personal programming language interpreter
+#  AbstractScript
 
 <h3> Keyword table </h3>
 
@@ -7,29 +7,30 @@
 | Initializing a Variable | `VAR` |
 | Cycle call **while** | `WHILE` |
 | Conditional operator **if** | `IF` |
-| Conditional operator **else** | `ELSE` |
 | Print to console | `PRINT` |
 
-<h3>Language syntax</h3>
+## Code example
 
-At the end of the line you need to put `;` .
-If we call `WHILE` conditions we push in `()` and the instruction in `{}` .
-In conditional operator`IF-ELSE`  - conditions we push in `()` and the instruction in `{}` .
+### Print to console
+```
+VAR hello = "Hello world";
+PRINT(hello);
+```
 
-<h3> Example code </h3>
+### Comparisons of numbers / elements 
 
 ```
-VAR a = 3 ;
-VAR b = 9 ;
-WHILE ( a < b ){
-	a += 1 ;
-}
-VAR c = True;
-IF ( c == False ){
-	PRINT ( a ) ;
-}
-ELSE {
-	PRINT ( b ) ;
-}
+VAR a = 5;
+IF (a < 6);
+   PRINT(a);
+ENDIF;
+```
+### Loop While
 
+```
+VAR a = 5;
+WHILE (a < 10);
+   PRINT(a);
+   a= a+1;
+END;
 ```
