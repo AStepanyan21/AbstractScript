@@ -9,7 +9,7 @@
 | Conditional operator **if** | `IF` |
 | Print to console | `PRINT` |
 
-## Code example
+## Code examples
 
 ### Print to console
 ```
