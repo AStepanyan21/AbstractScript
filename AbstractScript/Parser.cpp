@@ -50,7 +50,7 @@ private:
         return text;
     }
 
-	void parsing(std::string filename) {
+    void parsing(std::string filename) {
         std::string line;
         std::ifstream rfile;
         std::string all_code = "";
