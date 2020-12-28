@@ -1,8 +1,9 @@
+#ifndef CONDITIONALOPERATIONS_H
+#define CONDITIONALOPERATIONS_H
 #include <iostream>
 
 class Conditional {
 public:
-
 	template <class T,class R>
 	static bool equally(T a, R b) {
 		return a == b;
@@ -33,3 +34,4 @@ public:
 		return a < b;
 	}
 };
+#endif

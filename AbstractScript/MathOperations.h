@@ -1,3 +1,5 @@
+#ifndef MATHOPERATIONS_H
+#define MATHOPERATIONS_H
 #include <iostream>
 #include <math.h>
 
@@ -37,3 +39,4 @@ public:
 		return pow(a, b);
 	}
 };
+#endif

@@ -5,7 +5,7 @@
 ### C++ ###
 # Prerequisites
 *.d
-AbstractScript
+
 # Compiled Object files
 *.slo
 *.lo

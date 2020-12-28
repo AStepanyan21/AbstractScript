@@ -37,7 +37,7 @@ private:
 
     std::vector<std::vector<std::string>> parsingCommands(std::vector<std::string> command){
         std::vector<std::vector<std::string>> splitting_commands;
-        for(int i = 0; i<command.size();i++){
+        for(int i = 0; i < command.size(); i++){
             splitting_commands.push_back(this->splitCommand(command[i]));
         }
         return splitting_commands;

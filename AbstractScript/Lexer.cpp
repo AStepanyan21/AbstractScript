@@ -2,17 +2,17 @@
 #include <vector>
 #include <sstream> 
 #include <string>
-#include "ConditionalOperators.cpp"
-#include "MathOperations.cpp"
-#include "Print.cpp"
-#include "Variable.cpp"
+#include "ConditionalOperations.h"
+#include "MathOperations.h"
+#include "Print.h"
+#include "Variable.h"
+
 
 
 class Lexer {
 private:
     std::vector<std::vector<std::string>> all_commands;
-    Variable variable;
-    Print console;
+    VariableTable variable;
 
     float toNumber(std::string token){
         std::stringstream geek(token);
@@ -22,9 +22,9 @@ private:
     }
 
     std::string serchOnVars(std::string token){
-        if(variable.get(token).name == ""){
+        if (variable.get(token).name == ""){
             return token;
-        }else{
+        } else {
             if(variable.get(token).type == "number"){
                 return variable.get(token).value;
             }
@@ -36,7 +36,7 @@ private:
 
 
     void createNumberVar(std::string varName, std::string varValue){
-        VariableStructur var;
+        VariableStructure var;
         var.name = varName;
         var.value = varValue;
         var.type = "number";
@@ -44,7 +44,7 @@ private:
     }
 
     void createStringVar(std::string varName, std::string varValue){
-        VariableStructur var;
+        VariableStructure var;
         var.name = varName;
         var.value = varValue;
         var.type = "string";
@@ -78,9 +78,6 @@ private:
         if(this->conditionalOperations(command[0]) == true){
             command.erase(command.begin());
             this->tokenAnalis(command);
-        }
-        else{
-            return;
         }
     }
 
@@ -173,7 +170,7 @@ private:
                 continue;           
             }
             if(commands[i][0] == "PRINT"){
-                this->console.log(this->serchOnVars(commands[i][1]));
+                Print::log(this->serchOnVars(commands[i][1]));
             }
             else{
                 this->mathOperations(commands[i]);
@@ -185,10 +182,9 @@ private:
     }
 
 public:
-    Lexer(std::vector<std::vector<std::string>> all_commands, Variable variable, Print console) {
+    Lexer(std::vector<std::vector<std::string>> all_commands, VariableTable variable) {
         this->all_commands = all_commands;
         this->variable = variable;
         this->commandsRead(this->all_commands);
-        this->console = console;
     }
 };

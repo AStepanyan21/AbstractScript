@@ -1,30 +1,32 @@
+#ifndef VARIABLE_H
+#define VARIABLE_H
 #include <iostream>
 #include <map>
 
-struct VariableStructur
+struct VariableStructure
 {
     std::string name;
     std::string value;
     std::string type;
 };
 
-class Variable {
+class VariableTable {
 private:
-    std::map<std::string, VariableStructur> variables;
+    std::map<std::string, VariableStructure> variables;
 
 public:
-    Variable() {
+    VariableTable() {
 
     }
-    Variable(std::map<std::string, VariableStructur>* variables) {
+    VariableTable(std::map<std::string, VariableStructure>* variables) {
         this->variables = *variables;
     }
 
-    void set(std::string varName, VariableStructur var) {
+    void set(std::string varName, VariableStructure var) {
         this->variables[varName] = var;
     }
 
-    VariableStructur get(std::string varName) {
+    VariableStructure get(std::string varName) {
         return this->variables[varName];
     }
 
@@ -32,3 +34,4 @@ public:
         variables.erase(varName);
     }
 };
+#endif
