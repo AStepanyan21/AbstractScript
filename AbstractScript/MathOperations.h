@@ -5,23 +5,23 @@
 
 class Operation {
 public:
-	template <class T,class R>
-	static T sum(T a, R b) {
+	template <typename T,typename R>
+	static T sum(const T a, const R b) {
 		return a + b;
 	}
 
-	template <class T,class R>
-	static T sub(T a, R b) {
+	template <typename T,typename R>
+	static T sub(const T a, const R b) {
 		return a - b;
 	}
 
-	template <class T,class R>
-	static T mul(T a, R b) {
+	template <typename T,typename R>
+	static T mul(const T a, const R b) {
 		return a * b;
 	}
 
-	template <class T,class R>
-	static T dec(T a, R b) {
+	template <typename T,typename R>
+	static T dec(const T a, const R b) {
 		if (b != 0) {
 			return a / b;
 		}
@@ -34,7 +34,7 @@ public:
 		return a % b;
 	}
 
-	template <class T,class R>
+	template <typename T,typename R>
 	static T pow(T a, R b) {
 		return pow(a, b);
 	}

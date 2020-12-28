@@ -18,19 +18,19 @@ public:
     VariableTable() {
 
     }
-    VariableTable(std::map<std::string, VariableStructure>* variables) {
+    VariableTable(const std::map<std::string, VariableStructure>* variables) {
         this->variables = *variables;
     }
 
-    void set(std::string varName, VariableStructure var) {
+    void set(const std::string varName, const VariableStructure var) {
         this->variables[varName] = var;
     }
 
-    VariableStructure get(std::string varName) {
+    VariableStructure get(const std::string varName) {
         return this->variables[varName];
     }
 
-    void delate(std::string varName) {
+    void delate( const std::string varName) {
         variables.erase(varName);
     }
 };

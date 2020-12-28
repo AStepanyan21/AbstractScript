@@ -1,11 +1,11 @@
 ﻿#include <iostream>
-#include "Parser.cpp"
-#include "Lexer.cpp"
+#include "Parser.h"
+#include "Lexer.h"
 
 
 int main(int argc, char* argv[])
 {
-    std::vector<std::vector<std::string>> all_commands;
+    std::vector<varTab> all_commands;
     std::string filename = argv[1];
     std::map<std::string, VariableStructure>* variables = new std::map<std::string, VariableStructure>;
     VariableTable variable(variables);

@@ -4,33 +4,33 @@
 
 class Conditional {
 public:
-	template <class T,class R>
-	static bool equally(T a, R b) {
+	template <typename T, typename R>
+	static bool equally(const T a, const R b) {
 		return a == b;
 	}
 
-	template <class T,class R>
-	static bool notEqual(T a, R b) {
+	template <typename T, typename R>
+	static bool notEqual(const T a, const R b) {
 		return a != b;
 	}
 
-	template <class T,class R>
-	static bool greaterThanEquals(T a, R b) {
+	template <typename T, typename R>
+	static bool greaterThanEquals(const T a, const R b) {
 		return a >= b;
 	}
 
-	template <class T,class R>
-	static bool lessThanEqual(T a, R b) {
+	template <typename T, typename R>
+	static bool lessThanEqual(const T a, const R b) {
 		return a <= b;
 	}
 
-	template <class T,class R>
-	static bool greater(T a, R b) {
+	template <typename T, typename R>
+	static bool greater(const T a, const R b) {
 		return a > b;
 	}
 	
-	template <class T,class R>
-	static bool less(T a, R b) {
+	template <typename T, typename R>
+	static bool less(const T a, const R b) {
 		return a < b;
 	}
 };

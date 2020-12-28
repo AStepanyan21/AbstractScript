@@ -1,3 +1,5 @@
+#ifndef LEXER_H
+#define LEXER_H
 #include <iostream>
 #include <vector>
 #include <sstream> 
@@ -8,10 +10,12 @@
 #include "Variable.h"
 
 
+using varTab = std::vector<std::string>;
+
 
 class Lexer {
 private:
-    std::vector<std::vector<std::string>> all_commands;
+    std::vector<varTab> all_commands;
     VariableTable variable;
 
     float toNumber(std::string token){
@@ -51,7 +55,7 @@ private:
         this->variable.set(var.name, var);
     }
 
-    bool conditionalOperations(std::vector<std::string> commands){
+    bool conditionalOperations(varTab commands){
         for ( int i = 0; i < commands.size(); i++) {
             if (commands[i] == "<"){
                 return Conditional::less(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
@@ -74,15 +78,15 @@ private:
         }
         return false;
     }
-    void ifCommand( std::vector<std::vector<std::string>> command){
+    void ifCommand( std::vector<varTab> command){
         if(this->conditionalOperations(command[0]) == true){
             command.erase(command.begin());
             this->tokenAnalis(command);
         }
     }
 
-    void whileCommand( std::vector<std::vector<std::string>> command){
-        std::vector<std::string> state = command[0];
+    void whileCommand( std::vector<varTab> command){
+        varTab state = command[0];
         bool whlieState = this->conditionalOperations(state);
         command.erase(command.begin());
         while( whlieState == true ){
@@ -91,7 +95,7 @@ private:
         }
     }
 
-    void mathOperations(std::vector<std::string> commands){
+    void mathOperations(varTab commands){
         for ( int i = 0; i < commands.size(); i++) {
             if (commands[i] == "+") {
                 this->createNumberVar(commands[i - 3], std::to_string(Operation::sum(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
@@ -113,7 +117,7 @@ private:
             }
         }
     }
-    void addVarCommand(std::vector<std::string> commands) {
+    void addVarCommand(varTab commands) {
         std::string str = "";
         for( int i = 0; i < commands.size(); i++ ){
             if(commands[i] == " \""){
@@ -138,13 +142,13 @@ private:
         
     }
    
-    void tokenAnalis(std::vector<std::vector<std::string>> commands) {
+    void tokenAnalis(std::vector<varTab> commands) {
         for (int i = 0; i < commands.size(); i++) {
             if (commands[i][0] == "VAR") {
                 this->addVarCommand(commands[i]);
             }
             if (commands[i][0] == "IF"){
-                std::vector<std::vector<std::string>> ifCommands;
+                std::vector<varTab> ifCommands;
                 for(int j = i ; j < commands.size();j++,i++){
                     if(commands[j][0] != "ENDIF"){
                        ifCommands.push_back(commands[j]);
@@ -157,7 +161,7 @@ private:
                 continue;           
             }
             if (commands[i][0] == "WHILE"){
-                std::vector<std::vector<std::string>> whileCommands;
+                std::vector<varTab> whileCommands;
                 for(int j = i ; j < commands.size();j++,i++){
                     if(commands[j][0] != "END"){
                        whileCommands.push_back(commands[j]);
@@ -177,14 +181,15 @@ private:
             }
         }
     }
-    void commandsRead(std::vector<std::vector<std::string>> all_commands) {
+    void commandsRead(std::vector<varTab> all_commands) {
         this->tokenAnalis(all_commands); 
     }
 
 public:
-    Lexer(std::vector<std::vector<std::string>> all_commands, VariableTable variable) {
+    Lexer(std::vector<varTab> all_commands, VariableTable variable) {
         this->all_commands = all_commands;
         this->variable = variable;
         this->commandsRead(this->all_commands);
     }
 };
+#endif

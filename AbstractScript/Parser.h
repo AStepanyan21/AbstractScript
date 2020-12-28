@@ -1,3 +1,5 @@
+#ifndef PARSER_H
+#define PARSER_H
 #include <iostream>
 #include <stdint.h>
 #include <fstream>
@@ -7,14 +9,16 @@
 #include <vector>
 
 
+using varTab = std::vector<std::string>;
+
 
 class Parser {
 private:
-    std::vector<std::string> commands;
-    std::vector<std::vector<std::string>> splitting_commands;
+    varTab commands;
+    std::vector<varTab> splitting_commands;
 
-    std::vector<std::string> splitting(std::string text){
-        std::vector<std::string> commands;
+    varTab splitting(std::string text){
+        varTab commands;
         std::string intermediate;
         std::stringstream check1(text);
         while(std::getline(check1, intermediate, ';')){
@@ -23,9 +27,9 @@ private:
         return commands;
     }
 
-    std::vector<std::string> splitCommand(std::string s){
+    varTab splitCommand(std::string s){
         std::regex reg("\\s*(\")|(([a-zA-Z]+)(\\d*)|[+*/-])|([0-9]+).([0-9]+)|([0-9]+)|!=|<=|>=|==|[=]|<|>|%\\s*");
-        std::vector<std::string> v;
+        varTab v;
         std::sregex_token_iterator iter(s.begin(), s.end(), reg, 0);
         std::sregex_token_iterator end;
         while(iter != end){
@@ -35,8 +39,8 @@ private:
         return v;
     }
 
-    std::vector<std::vector<std::string>> parsingCommands(std::vector<std::string> command){
-        std::vector<std::vector<std::string>> splitting_commands;
+    std::vector<varTab> parsingCommands(varTab command){
+        std::vector<varTab> splitting_commands;
         for(int i = 0; i < command.size(); i++){
             splitting_commands.push_back(this->splitCommand(command[i]));
         }
@@ -70,7 +74,8 @@ public:
     Parser(std::string filename) {
         this->parsing(filename);
     }
-    std::vector<std::vector<std::string>> getCommands(){
+    std::vector<varTab> getCommands(){
         return this->splitting_commands;
     }
 };
+#endif
