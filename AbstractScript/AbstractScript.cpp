@@ -2,6 +2,8 @@
 #include "Parser.h"
 #include "Lexer.h"
 
+using varTab = std::vector<std::string>;
+
 
 int main(int argc, char* argv[])
 {
