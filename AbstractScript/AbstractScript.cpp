@@ -8,7 +8,8 @@ using varTab = std::vector<std::string>;
 int main(int argc, char* argv[])
 {
     std::vector<varTab> all_commands;
-    std::string filename = argv[1];
+    //char* filename = argv[1];
+    char filename[] = "test.ac";
     std::map<std::string, VariableStructure>* variables = new std::map<std::string, VariableStructure>;
     VariableTable variable(variables);
     Parser parser(filename);
