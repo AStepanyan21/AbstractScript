@@ -35,41 +35,30 @@ private:
         std::wstring newENDIF = L"ENDIF";
         std::wstring END = L"վերջ";
         std::wstring newEND = L"END";
-        try {
-            nPos = code.find(VAR);
+
+        nPos = code.find(VAR);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, VAR.length(), newVAR);
         }
-        catch(int e){
-        }
-        try {
-            nPos = code.find(IF);
+        nPos = code.find(IF);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, IF.length(), newIF);
         }
-        catch (int e) {
-        }
-        try {
-            nPos = code.find(PRINT);
+        nPos = code.find(PRINT);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, PRINT.length(), newPRINT);
         }
-        catch (int e) {
-        }
-        try {
-            nPos = code.find(WHILE);
+        nPos = code.find(WHILE);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, WHILE.length(), newWHILE);
         }
-        catch (int e) {
-        }
-        try {
-            nPos = code.find(ENDIF);
+        nPos = code.find(ENDIF);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, ENDIF.length(), newENDIF);
         }
-        catch (int e) {
-        }
-        try {
-            nPos = code.find(END);
+        nPos = code.find(END);
+        if (nPos != std::string::npos) {
             code = code.replace(nPos, END.length(), newEND);
-        }
-        catch (int e) {
         }
         return code;
     }
