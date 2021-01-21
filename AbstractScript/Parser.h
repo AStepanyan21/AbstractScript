@@ -68,7 +68,7 @@ private:
         std::wifstream wif(filename);
         
         std::wstring code;
-        wif.imbue(std::locale(std::locale::empty(), new std::codecvt_utf8<wchar_t>));
+        wif.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t>));
         std::wstringstream wss;
         wss << wif.rdbuf();
         code = this->translate(wss.str());
