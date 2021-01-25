@@ -13,53 +13,53 @@
 
 using varTab = std::vector<std::string>;
 
-
+struct Alias{
+    std::wstring arm;
+    std::wstring eng;
+};
 
 class Parser {
 private:
     varTab commands;
     std::vector<varTab> splitting_commands;
 
+    std::wstring findToken(std::wstring& code, const std::wstring& arm, const std::wstring& eng) {
+        size_t nPos;
+        nPos = code.find(arm);
+        if (nPos != std::string::npos) {
+            return code.replace(nPos, arm.length(), eng);
+        }
+        return code;
+    }
 
     std::wstring translate(std::wstring code) {
-        size_t nPos;
-        std::wstring VAR = L"փոփ";
-        std::wstring newVAR = L"VAR";
-        std::wstring IF = L"եթե";
-        std::wstring newIF = L"IF";
-        std::wstring PRINT = L"տպել";
-        std::wstring newPRINT = L"PRINT";
-        std::wstring WHILE = L"երբ";
-        std::wstring newWHILE = L"WHILE";
-        std::wstring ENDIF = L"ապա-վերջ";
-        std::wstring newENDIF = L"ENDIF";
-        std::wstring END = L"վերջ";
-        std::wstring newEND = L"END";
+        Alias Var;
+        Var.arm = L"փոփ";
+        Var.eng = L"VAR";
+        Alias If;
+        If.arm = L"եթե";
+        If.eng = L"IF";
+        Alias Print;
+        Print.arm = L"տպել";
+        Print.eng = L"PRINT";
+        Alias While;
+        While.arm = L"երբ";
+        While.eng = L"WHILE";
+        Alias EndIf;
+        EndIf.arm = L"ապա-վերջ";
+        EndIf.eng = L"ENDIF";
+        Alias End;
+        End.arm = L"վերջ";
+        End.eng = L"END";
 
-        nPos = code.find(VAR);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, VAR.length(), newVAR);
-        }
-        nPos = code.find(IF);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, IF.length(), newIF);
-        }
-        nPos = code.find(PRINT);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, PRINT.length(), newPRINT);
-        }
-        nPos = code.find(WHILE);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, WHILE.length(), newWHILE);
-        }
-        nPos = code.find(ENDIF);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, ENDIF.length(), newENDIF);
-        }
-        nPos = code.find(END);
-        if (nPos != std::string::npos) {
-            code = code.replace(nPos, END.length(), newEND);
-        }
+
+        code = findToken(code, L"փոփ", L"VAR");
+        code = findToken(code, L"եթե", L"IF");
+        code = findToken(code, L"տպել", L"PRINT");
+        code = findToken(code, L"երբ", L"WHILE");
+        code = findToken(code, L"ապա-վերջ", L"ENDIF");
+        code = findToken(code, L"վերջ", L"END");
+        
         return code;
     }
 
