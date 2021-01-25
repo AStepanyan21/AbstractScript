@@ -53,12 +53,12 @@ private:
         End.eng = L"END";
 
 
-        code = findToken(code, L"փոփ", L"VAR");
-        code = findToken(code, L"եթե", L"IF");
-        code = findToken(code, L"տպել", L"PRINT");
-        code = findToken(code, L"երբ", L"WHILE");
-        code = findToken(code, L"ապա-վերջ", L"ENDIF");
-        code = findToken(code, L"վերջ", L"END");
+        code = findToken(code, Var.arm, Var.eng);
+        code = findToken(code, If.arm, If.eng);
+        code = findToken(code, Print.arm, Print.eng);
+        code = findToken(code, While.arm, While.eng);
+        code = findToken(code, EndIf.arm, EndIf.eng);
+        code = findToken(code, End.arm, End.eng);
         
         return code;
     }
