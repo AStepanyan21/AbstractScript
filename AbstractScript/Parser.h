@@ -113,8 +113,6 @@ private:
     }
 
     void parsing(char* filename) {
-        std::string line;
-        std::ifstream rfile;
         std::wstring uCode = this->readFile(filename);
         std::string all_code(uCode.begin(), uCode.end());
         std::string code = this->delete_tabs_and_newline(all_code);
