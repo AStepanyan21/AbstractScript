@@ -17,6 +17,7 @@ class Lexer {
 private:
     std::vector<varTab> all_commands;
     VariableTable variable;
+    std::string intermediate_code;
 
     float toNumber(std::string token){
         std::stringstream geek(token);
@@ -190,6 +191,7 @@ public:
         this->all_commands = all_commands;
         this->variable = variable;
         this->commandsRead(this->all_commands);
+        this->intermediate_code = "";
     }
 };
 #endif

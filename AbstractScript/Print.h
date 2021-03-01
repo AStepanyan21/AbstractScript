@@ -8,15 +8,5 @@ public:
 	static void log(const T logName) {
         std::cout << logName << std::endl;
 	}
-
-    template <typename T>
-	static void error(const T logName) {
-        std::cout << logName << std::endl;
-	}
-
-    template <typename T>
-	static void success(const T logName) {
-		std::cout << logName << std::endl;
-	}
 };
 #endif
