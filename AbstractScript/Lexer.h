@@ -56,7 +56,7 @@ private:
     }
 
     bool conditionalOperations(varTab commands){
-        for ( int i = 0; i < commands.size(); i++) {
+        for ( int i = 0; i < commands.size(); ++i) {
             if (commands[i] == "<"){
                 return Conditional::less(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])));
             }
@@ -96,7 +96,7 @@ private:
     }
 
     void mathOperations(varTab commands){
-        for ( int i = 0; i < commands.size(); i++) {
+        for ( int i = 0; i < commands.size(); ++i) {
             if (commands[i] == "+") {
                 this->createNumberVar(commands[i - 3], std::to_string(Operation::sum(this->toNumber(this->serchOnVars(commands[i - 1])),this->toNumber(this->serchOnVars(commands[i + 1])))));
             }
@@ -119,9 +119,9 @@ private:
     }
     void addVarCommand(varTab commands) {
         std::string str = "";
-        for( int i = 0; i < commands.size(); i++ ){
+        for( int i = 0; i < commands.size(); ++i ){
             if(commands[i] == " \""){
-                for( int j=i+1; j < commands.size(); j++, i++){
+                for( int j=i+1; j < commands.size(); ++j, ++i){
                     if(commands[j] != "\""){
                         str = str + commands[j] + " ";
 
@@ -143,13 +143,13 @@ private:
     }
    
     void tokenAnalis(std::vector<varTab> commands) {
-        for (int i = 0; i < commands.size(); i++) {
+        for (int i = 0; i < commands.size(); ++i) {
             if (commands[i][0] == "VAR") {
                 this->addVarCommand(commands[i]);
             }
             if (commands[i][0] == "IF"){
                 std::vector<varTab> ifCommands;
-                for(int j = i ; j < commands.size();j++,i++){
+                for(int j = i ; j < commands.size();++j,++i){
                     if(commands[j][0] != "ENDIF"){
                        ifCommands.push_back(commands[j]);
                     }
@@ -162,7 +162,7 @@ private:
             }
             if (commands[i][0] == "WHILE"){
                 std::vector<varTab> whileCommands;
-                for(int j = i ; j < commands.size();j++,i++){
+                for(int j = i ; j < commands.size();++j,++i){
                     if(commands[j][0] != "END"){
                        whileCommands.push_back(commands[j]);
                     }
