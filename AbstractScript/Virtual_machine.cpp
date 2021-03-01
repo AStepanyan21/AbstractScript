@@ -40,27 +40,24 @@ private:
     }
     
     float* return_on_registers(std::string regist_name){
-        if(regist_name == "eax"){
+        if (regist_name == "eax"){
             return &this->eax;
-        }
-        else if(regist_name == "ebx"){
+        } else if (regist_name == "ebx"){
             return &this->ebx;
-        }
-        else if(regist_name == "ecx"){
+        } else if (regist_name == "ecx"){
             return &this->ecx;
-        }
-        else if(regist_name == "edx"){
+        } else if (regist_name == "edx"){
             return &this->edx;
         }
     }
     void addStringVariable(std::string var, std::string registor){
-        if(registor == "eay"){
+        if (registor == "eay"){
             this->eay = var;
-        }else if(registor == "eby"){
+        } else if (registor == "eby"){
             this->eby = var;
-        }else if(registor == "ecy"){
+        } else if (registor == "ecy"){
             this->ecy = var;
-        }else if(registor == "edy"){
+        } else if (registor == "edy"){
             this->edy = var;
         }
     }
@@ -79,26 +76,26 @@ private:
     void addNumberVariable(float var, std::string registor ){
         if( registor == "eax"){
             this->eax = var;
-        }else if(registor == "ebx"){
+        } else if (registor == "ebx"){
             this->ebx = var;
-        }else if(registor == "ecx"){
+        } else if (registor == "ecx"){
             this->ecx = var;
-        }else if(registor == "edx"){
+        } else if (registor == "edx"){
             this->edx = var;
         }
     }
     std::string CON(float a, float b){
-        if( a - b == 0 ){
+        if ( a - b == 0 ){
             return equally;
-        }else if( a - b != 0 ){
+        } else if ( a - b != 0 ){
             return notEqual;
-        }else if( a - b >= 0){
+        } else if ( a - b >= 0){
             return greaterThanEquals;
-        }else if ( a - b > 0 ){
+        } else if ( a - b > 0 ){
             return greater;
-        }else if ( a - b <= 0 ){
+        } else if ( a - b <= 0 ){
             return lessThanEqual;
-        }else if ( a - b < 0 ){
+        } else if ( a - b < 0 ){
             return less;
         }
     }
@@ -109,23 +106,23 @@ private:
         for(this->line; this->line<this->commands.size(); ++this->line){
             if(this->commands[this->line][0] == ADD_S ){
                 this->addStringVariable(this->commands[this->line][2],this->commands[this->line][1]);
-            }else if(this->commands[this->line][0] == ADD_N){
+            } else if(this->commands[this->line][0] == ADD_N){
                 this->addNumberVariable(this->toNumber(this->commands[this->line][2]),this->commands[this->line][1]);
-            }else if (this->commands[this->line][0] == C_SUM){   
+            } else if (this->commands[this->line][0] == C_SUM){   
                 this->SUM(*this->return_on_registers(this->commands[this->line][1]),
                             *this->return_on_registers(this->commands[this->line][2]));
-            }else if (this->commands[this->line][0] == C_SUB){   
+            } else if (this->commands[this->line][0] == C_SUB){   
                 this->SUB(*this->return_on_registers(this->commands[this->line][1]),
                         *this->return_on_registers(this->commands[this->line][2]));
-            }else if (this->commands[this->line][0] == C_DEC){   
+            } else if (this->commands[this->line][0] == C_DEC){   
                 this->DEC(*this->return_on_registers(this->commands[this->line][1]),
                         *this->return_on_registers(this->commands[this->line][2]));
-            }else if (this->commands[this->line][0] == C_MUL){   
+            } else if (this->commands[this->line][0] == C_MUL){   
                 this->MUL(*this->return_on_registers(this->commands[this->line][1]),
                         *this->return_on_registers(this->commands[this->line][2]));
-            }else if(this->commands[this->line][0] == C_JUMP){
+            } else if (this->commands[this->line][0] == C_JUMP){
                 this->JUMP(this->toInt(this->commands[this->line][1]));
-            }else if (this->commands[this->line][0] == PRINT){
+            } else if (this->commands[this->line][0] == PRINT){
                 Print::log(this->commands[this->line][1]);
             }
             
